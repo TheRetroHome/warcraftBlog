@@ -36,6 +36,11 @@
   <body>
 
 <header>
+        @if(session()->has('success'))
+             <div class="alert alert-success success-notification">
+                  {{session('success')}}
+             </div>
+        @endif
   <div class="collapse bg-dark" id="navbarHeader">
     <div class="container">
       <div class="row">
@@ -43,15 +48,20 @@
           <h4 class="text-white">Warcraft Blog</h4>
           <p class="text-muted">На этом сайте вы можете просматривать, создавать, редактировать свои статьи.
           Существует возможность оценивания, комментирования и модерации всего, что было перечислено выше.
-          Все герои и героини Азерота приглашаются к активному обсуждению игрового мира, а также его активного обсуждения,
+          Все герои и героини Азерота приглашаются к активному обсуждению игрового мира, а также его активного дополнения информации о нём,
           чувствуйте себя здесь как дома</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contact</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
+          @guest
+            <li><a href="{{route('login.create')}}" class="text-white">Login</a></li>
+            <li><a href="{{route('register.create')}}" class="text-white">Register</a></li>
+          @endguest
+            @auth
+            <li><a href="#" class="text-white">{{Auth::user()->name}}</a></li>
+            <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
+            @endauth
           </ul>
         </div>
       </div>
