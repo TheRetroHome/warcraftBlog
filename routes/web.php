@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +24,6 @@ Route::group(['middleware'=>'guest'], function(){
 Route::group(['middleware'=>'auth'], function(){
     Route::get('logout',[HomeController::class,'logout'])->name('logout');
 });
-
+Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
+    Route::get('/',[AdminController::class,'index'])->name('admin.index');
+});

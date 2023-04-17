@@ -60,9 +60,9 @@
           @endguest
             @auth
             <li><a href="#" class="text-white">{{Auth::user()->name}}</a></li>
-            @if(Auth::user()->is_admin)
+            @admin
             <li><a href="#" class="text-white">Вы администратор!</a></li>
-            @endif
+            @endadmin
             <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
             @endauth
           </ul>

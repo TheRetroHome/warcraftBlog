@@ -20,7 +20,12 @@ class HomeController extends Controller
     }
     public function login(LoginRequest $request){
         Auth::attempt($request->only('email','password'));
-        return redirect()->route('home')->with('success','Авторизация пройдена');
+        if(Auth::user()->is_admin){
+            return redirect()->route('admin.index')->with('success','Авторизация пройдена, привет Админ!');
+    }
+        else{
+            return redirect()->route('home')->with('success','Авторизация пройдена');
+        }
     }
     public function register(UserRequest $request){
     $user = User::create([
