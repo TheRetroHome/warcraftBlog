@@ -24,11 +24,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Создание категории</h3>
+                            <h3 class="card-title">Создание поста</h3>
                         </div>
                         <!-- /.card-header -->
 
-                        <form role="form" method="post" action="{{ route('category.store') }}">
+                        <form role="form" method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -37,7 +37,37 @@
                                            class="form-control @error('title') is-invalid @enderror" id="title"
                                            placeholder="Название">
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                         <label for="description">Цитата</label>
+                                         <textarea class="form-control @error('title') is-invalid @enderror"name="description"
+                                           id="description" rows="3" placeholder="Цитата ..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                         <label for="content">Контент</label>
+                                         <textarea class="form-control @error('title') is-invalid @enderror"name="content"
+                                           id="content" rows="3" placeholder="Контент ..."></textarea>
+
+                                </div>
+                                 <div class="form-group">
+                                                         <label for="category_id">Категория</label>
+                                                         <select class="form-control @error('title') is-invalid @enderror"
+                                                         id="category_id" name="category_id">
+                                                         @foreach($categories as $k => $v)
+                                                           <option value="{{$k}}">{{$v}}</option>
+                                                         @endforeach
+                                                         </select>
+                                 </div>
+                                <div class="form-group">
+                                                    <label for="thumbnail">Изображение</label>
+                                                    <div class="input-group">
+                                                      <div class="custom-file">
+                                                        <input type="file" name="thumbnail" id="thumbnail" class="custom-file-input">
+                                                        <label class="custom-file-label" for="thumbnail">Choose file</label>
+                                                      </div>
+                                                    </div>
+                                     </div>
+                                </div>
+                           </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">

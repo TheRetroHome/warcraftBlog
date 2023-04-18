@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 class Post extends Model
 {
     protected $fillable = ['title','description','content','category_id','thumbnail'];
@@ -20,6 +22,22 @@ class Post extends Model
         ];
     }
     public function category(){
-        $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
+    }
+    public static function uploadImage(Request $request,$image = null){
+        if ($request->hasFile('thumbnail')){
+            if($image){
+                Storage::disk('public')->delete($image);
+            }
+            $folder = date('Y-m-d');
+            return  $request->file('thumbnail')->store("/images/{$folder}", 'public');
+        }
+        return null;
+    }
+    public function getImage(){
+        if(!$this->thumbnail){
+            return asset('no-image.png');
+        }
+        return asset("uploads/{$this->thumbnail}");
     }
 }
