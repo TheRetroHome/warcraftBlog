@@ -37,15 +37,6 @@ class CategoryController extends Controller
         Category::create($data);
         return redirect()->route('category.index')->with('success','Категория успешно добавлена');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
