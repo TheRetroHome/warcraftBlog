@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories=Category::paginate(3);
+        $pagination=$categories->links('pagination::bootstrap-4');
+        return view('admin.categories.index',compact('categories','pagination'));
     }
 
     /**
@@ -21,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -29,7 +31,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title'=>'required',
+        ]);
+        Category::create($data);
+        return redirect()->route('category.index')->with('success','Категория успешно добавлена');
     }
 
     /**
@@ -45,7 +51,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -53,7 +59,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            'title'=>'required',
+        ]);
+        $category->update($data);
+        return redirect()->route('category.index')->with('success','Категория успешно редактирована!');
     }
 
     /**
@@ -61,6 +71,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete($category);
+        return redirect()->route('category.index')->with('success','Категория успешно редактирована!');
     }
 }

@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class MainPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $posts = Post::with('category')->paginate(5);
+        $pagination = $posts->links('pagination::bootstrap-4');
+        return view('admin.posts.index',compact('posts','pagination'));
     }
 
     /**
