@@ -10,7 +10,7 @@
     <title>Album example · Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-
+    <script src="https://kit.fontawesome.com/76a91fea5d.js" crossorigin="anonymous"></script>
 
 
     <!-- Bootstrap core CSS -->

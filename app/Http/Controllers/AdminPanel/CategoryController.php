@@ -62,7 +62,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if($category->posts()->count()){
+            return redirect()->route('category.index')->with('error','Ошибка! У категории есть записи!');
+        }
         $category->delete($category);
-        return redirect()->route('category.index')->with('success','Категория успешно редактирована!');
+        return redirect()->route('category.index')->with('success','Категория успешно удалена!');
     }
 }

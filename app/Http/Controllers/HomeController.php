@@ -7,10 +7,13 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use App\Models\Post;
 class HomeController extends Controller
 {
     public function home(){
-        return view('main.index');
+        $posts = Post::paginate(6);
+        $pagination = $posts->links('pagination::bootstrap-4');
+        return view('main.index',compact('posts','pagination'));
     }
     public function loginForm(){
         return view('main.login');
@@ -20,7 +23,7 @@ class HomeController extends Controller
     }
     public function login(LoginRequest $request){
         Auth::attempt($request->only('email','password'));
-        if(Auth::user()->is_admin){
+        if(Auth::check() && Auth::user()->is_admin){
             return redirect()->route('admin.index')->with('success','Авторизация пройдена, привет Админ!');
     }
         else{
