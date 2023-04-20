@@ -26,7 +26,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a href="{{ route('post.single', ['slug' => $post->slug]) }}" class="btn btn-sm btn-outline-secondary">View</a>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    @admin
+                    <a href="{{ route('post.edit',['post'=>$post->id])}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="{{ route('post.destroy', ['post' => $post->id]) }}" class="btn btn-sm btn-outline-secondary" onclick="return confirm('Вы уверены, что хотите удалить этот пост?')">Delete</a>
+                    @endadmin
                 </div>
             <div class="d-flex justify-content-between align-items-center">
                 <!-- ... -->
