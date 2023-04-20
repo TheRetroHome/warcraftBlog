@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminPanel\MainPostController;
 */
 
 Route::get('/',[HomeController::class,'home'])->name('home');
+Route::get('/article/{slug}',[HomeController::class,'show'])->name('post.single');
 Route::group(['middleware'=>'guest'], function(){
     Route::get('login',[HomeController::class,'loginForm'])->name('login.create');
     Route::get('register',[HomeController::class,'registerForm'])->name('register.create');

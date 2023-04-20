@@ -43,4 +43,10 @@ class HomeController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+    public function show($slug){
+        $post = Post::where('slug',$slug)->firstOrFail();
+        $post->views += 1;
+        $post->update();
+        return view('main.single',compact('post'));
+    }
 }
