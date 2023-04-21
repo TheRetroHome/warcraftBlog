@@ -46,4 +46,9 @@ class Post extends Model
     public function scopeLike($query,$s){
         return $query->where('title','LIKE',"%{$s}%");
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

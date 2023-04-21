@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminPanel\CategoryController;
 use App\Http\Controllers\AdminPanel\MainPostController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,13 +23,15 @@ Route::get('/article/{slug}',[HomeController::class,'show'])->name('post.single'
 Route::get('/search',[SearchController::class,'index'])->name('search');
 Route::get('/category/{slug}',[HomeController::class,'showCategoryPosts'])->name('category.single');
 Route::group(['middleware'=>'guest'], function(){
-    Route::get('login',[HomeController::class,'loginForm'])->name('login.create');
-    Route::get('register',[HomeController::class,'registerForm'])->name('register.create');
+    Route::get('login',[HomeController::class,'loginForm'])->name('login');
+    Route::get('register',[HomeController::class,'registerForm'])->name('register');
     Route::post('login',[HomeController::class,'login'])->name('login.store');
     Route::post('register',[HomeController::class,'register'])->name('register.store');
 });
 Route::group(['middleware'=>'auth'], function(){
     Route::get('logout',[HomeController::class,'logout'])->name('logout');
+    Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/post/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::get('/',[AdminController::class,'index'])->name('admin.index');

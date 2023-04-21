@@ -55,8 +55,8 @@
             <h4><a class="text-white" href="{{route('home')}}">Главная</a></h4>
           <ul class="list-unstyled">
           @guest
-            <li><a href="{{route('login.create')}}" class="text-white">Login</a></li>
-            <li><a href="{{route('register.create')}}" class="text-white">Register</a></li>
+            <li><a href="{{route('login')}}" class="text-white">Login</a></li>
+            <li><a href="{{route('register')}}" class="text-white">Register</a></li>
           @endguest
             @auth
             <li><a href="#" class="text-white">{{Auth::user()->name}}</a></li>
