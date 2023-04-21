@@ -29,6 +29,7 @@
           font-size: 3.5rem;
         }
       }
+
     </style>
 
 @vite('resources/js/app.js')

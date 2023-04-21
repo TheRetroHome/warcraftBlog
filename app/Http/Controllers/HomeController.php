@@ -48,7 +48,8 @@ class HomeController extends Controller
         $post = Post::where('slug',$slug)->firstOrFail();
         $post->views += 1;
         $post->update();
-        return view('main.single',compact('post'));
+        $comments = $post->comments()->paginate(10);
+        return view('main.single',compact('post','comments'));
     }
     public function showCategoryPosts($slug){
       $category = Category::where('slug',$slug)->firstOrfail();

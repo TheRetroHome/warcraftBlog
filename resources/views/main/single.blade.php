@@ -44,7 +44,7 @@
                         @endif
                         <div class="mt-4">
                             <h4>Комментарии ({{$post->comments->count()}})</h4>
-                            @foreach($post->comments as $comment)
+                            @foreach($comments as $comment)
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <h5>@if($comment->user->is_admin)Администратор: @endif{{ $comment->user->name }}</h5>
@@ -60,6 +60,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            {!! $comments->links('pagination::bootstrap-4', ['class' => 'pagination']) !!}
                         </div>
 
                     </div>
