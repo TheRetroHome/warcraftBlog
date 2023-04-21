@@ -13,6 +13,7 @@
                             <p>{{$post->description}}</p>
                         </blockquote>
                         <p class="card-text">{{$post->content}}</p>
+                        <p class="card-text"> Категория: <a href="{{route('category.single',['slug'=>$post->category->slug])}}">{{$post->category->title}}</p></a>
                         <p class="card-text">
                             <small class="text-muted">
                                 <i class="fas fa-eye"></i> {{$post->views}}

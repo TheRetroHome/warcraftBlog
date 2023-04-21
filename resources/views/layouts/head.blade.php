@@ -61,7 +61,7 @@
             @auth
             <li><a href="#" class="text-white">{{Auth::user()->name}}</a></li>
             @admin
-            <li><a href="#" class="text-white">Вы администратор!</a></li>
+            <li><a href="{{route('admin.index')}}" class="text-white">Вы администратор!</a></li>
             @endadmin
             <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
             @endauth

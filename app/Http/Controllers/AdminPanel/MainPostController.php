@@ -36,7 +36,7 @@ class MainPostController extends Controller
     {
         $data = $request->validated();
         $data['thumbnail']= Post::uploadImage($request);
-        $post = Post::create($data);
+        Post::create($data);
         return redirect()->route('post.index')->with('success','Пост успешно добавлен');
     }
 

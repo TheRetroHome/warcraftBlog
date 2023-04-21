@@ -1,23 +1,12 @@
 @extends('layouts.head')
 @section('content')
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">warcraftBlog</h1>
-        <p class="lead text-muted">Поиск по блогу:</p>
-        <form class="d-flex" method="GET" action="{{route('search')}}">
-            <input class="form-control me-2" type="search" name="s" placeholder="Введите запрос..." aria-label="Search">
-            <button type="submit" class="btn btn-outline-success">Поиск</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-
-
-  <div class="album py-5 bg-light">
+<div class="album py-5 bg-light">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      @if($posts->count())
+                <div class="col-12 mb-3">
+                    <h4 class="text-center text-primary">По вашему запросу было найдено: {{$posts->count()}} записей</h4>
+                </div>
               @foreach($posts as $post)
         <div class="col">
           <div class="card shadow-sm">
@@ -55,12 +44,16 @@
 
         </style>
             @endforeach
-           <div class="card-footer clearfix">
-               {!! $pagination  !!}
-          </div>
+            @else
+                <div class="col-12 mb-3">
+                    <h4 class="text-center text-primary">По вашему запросу ничего не было найдено</h4>
+                </div>
+            @endif
+                       <div class="card-footer clearfix">
+                           {!! $pagination  !!}
+                      </div>
 
       </div>
     </div>
   </div>
-
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -11,7 +12,7 @@ use App\Models\Post;
 class HomeController extends Controller
 {
     public function home(){
-        $posts = Post::paginate(6);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         $pagination = $posts->links('pagination::bootstrap-4');
         return view('main.index',compact('posts','pagination'));
     }
@@ -48,5 +49,11 @@ class HomeController extends Controller
         $post->views += 1;
         $post->update();
         return view('main.single',compact('post'));
+    }
+    public function showCategoryPosts($slug){
+      $category = Category::where('slug',$slug)->firstOrfail();
+      $posts = $category->posts()->orderBy('id','desc')->paginate(5);
+      $pagination = $posts->links('pagination::bootstrap-4');
+      return view('main.category',compact('category','posts','pagination'));
     }
 }
