@@ -11,8 +11,9 @@ class SearchController extends Controller
         's'=>'required',
     ]);
     $s = $request->s;
+    $count = Post::count();
     $posts = Post::like($s)->with('category')->paginate(3);
     $pagination = $posts->links('pagination::bootstrap-4');
-    return view('main.search',compact('posts','s','pagination'));
+    return view('main.search',compact('posts','s','pagination','count'));
     }
 }

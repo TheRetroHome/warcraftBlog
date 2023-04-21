@@ -5,7 +5,7 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       @if($posts->count())
                 <div class="col-12 mb-3">
-                    <h4 class="text-center text-primary">По вашему запросу было найдено: {{$posts->count()}} записей</h4>
+                    <h4 class="text-center text-primary">По вашему запросу было найдено: {{$count}} записей</h4>
                 </div>
               @foreach($posts as $post)
         <div class="col">
