@@ -24,6 +24,16 @@ class Post extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likedBy(User $user)
+    {
+        return $this->likes->contains('user_id', $user->id);
+    }
+
     public static function uploadImage(Request $request,$image = null){
         if ($request->hasFile('thumbnail')){
             if($image){

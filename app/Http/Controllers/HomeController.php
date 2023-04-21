@@ -12,7 +12,10 @@ use App\Models\Post;
 class HomeController extends Controller
 {
     public function home(){
-        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        $posts = Post::withCount('likes')
+            ->orderBy('likes_count', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
         $pagination = $posts->links('pagination::bootstrap-4');
         return view('main.index',compact('posts','pagination'));
     }

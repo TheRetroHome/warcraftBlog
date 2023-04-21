@@ -19,6 +19,35 @@
                                 <i class="fas fa-eye"></i> {{$post->views}}
                             </small>
                         </p>
+
+                        <!-- Кнопка лайка и количество лайков -->
+                        <div class="d-flex align-items-center mb-3">
+                            <p class="card-text mr-3">
+                            <div style="padding: 10px;">
+                                <i class="fas fa-heart"></i> {{$post->likes->count()}}
+                            </div>
+                            </p>
+                            <div>
+                            @if(auth()->check())
+                                @if(!$post->likedBy(auth()->user()))
+                                    <form action="{{ route('likes.store', $post) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Лайк</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('likes.destroy', $post) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Удалить лайк</button>
+                                    </form>
+                                @endif
+                            @else
+                                <p>Пожалуйста, <a href="{{ route('login') }}">войдите</a> или <a href="{{ route('register') }}">зарегистрируйтесь</a> чтобы ставить лайки.</p>
+                            @endif
+
+                        </div>
+                        <!-- Конец блока для лайков -->
+
                     </div>
                 </div>
 

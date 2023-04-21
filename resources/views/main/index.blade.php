@@ -38,6 +38,9 @@
                 <span class="view-icon">
                     <i class="fas fa-eye"></i> {{$post->views}}
                 </span>
+                <span>
+                    <i class="fas fa-heart"></i> {{$post->likes->count()}}
+                </span>
                 <span class="post-date">{{$post->getPostDate()}}</span>
             </div>
               </div>

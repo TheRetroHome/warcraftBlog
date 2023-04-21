@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminPanel\CategoryController;
 use App\Http\Controllers\AdminPanel\MainPostController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +33,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('logout',[HomeController::class,'logout'])->name('logout');
     Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/post/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('likes.destroy');
+
 });
 Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::get('/',[AdminController::class,'index'])->name('admin.index');
