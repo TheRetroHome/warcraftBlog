@@ -1,66 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# warcraftBlog
+## Описание
+warcraftBlog - это блог, созданный на основе популярного PHP-фреймворка Laravel. В проекте реализована возможность создания, редактирования и удаления постов и категорий через админ-панель, а также регистрация, авторизация и выход пользователей на пользовательской части сайта. Посты могут быть просмотрены без регистрации. Реализована возможность зарегестрированным пользователям ставить лайки и оставлять комментарии. Посты собравшие большее колличество лайков отображаются самыми первыми.
+Если комментарий оставляет администратор, у него появляется префикс перед его именем (уведомляющий о том, что комментарий оставил именно администратор, а не обычный пользователь), пользователь оставивший комментарий может его удалить, администратор может удалять все комментарии, даже если они были написаны не им (у пользователей такой возможности нет). Реализован поиск по постам. Реализован счётчик просмотров отдельного поста.
+У администратора также есть возможность удалять или изменять пост не заходя в админ панели. Реализовано с помощью middleware admin (кастомный middleware) который отображает кнопки удаления и изменения только у пользователей, у которых в базе данных is_admin = 1
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Основные функции:
 
-## About Laravel
+1.Админ-панель для управления постами и категориями
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2.Регистрация, авторизация и выход пользователей
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3.Отображение постов на главной странице
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4.Одиночные странички для каждого поста
 
-## Learning Laravel
+5.Поиск постов по названию
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6.Отображение количества просмотров у каждого поста
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+7.Отображение даты создания каждого поста
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+8.Отображение лайков и возможность их ставить авторизованным пользователям
 
-## Laravel Sponsors
+9.Добавление комментариев, и возможность их удаления
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+10.Возможность просматривать все посты принадлежащей какой-либо отдельной категории
 
-### Premium Partners
+## Установка:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1. Клонируйте репозиторий с проектом:
 
-## Contributing
+    git clone https://github.com/TheRetroHome/warcraftBlog.git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. Установите все зависимости:
 
-## Code of Conduct
+    composer install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Запустите миграции и сидеры:
 
-## Security Vulnerabilities
+    php artisan migrate:fresh --seed
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Прописать
 
-## License
+    php artisan storage:link
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+5. Настройте проект в программе-сервере (XAMPP или OpenServer) для корректного вывода
+    
+
+## Использование
+
+В проекте разработана специальная фабрика и сидер, которые ответственны за создание 50 постов. Для пользователей таких сидеров нет, регистрацию нужно будет произвести вручную.
+На основной странице "/" располагаются все посты спагинированные по 6 штук на страницу, тут же можно увидеть поиск всех постов, а чуть выше шапку, где расположены переходы на регистрацию и авторизацию. При последующей авторизации, будет выведено имя пользователя (если он админ, будет надпись "Вы администратор!", нажав на которую можно попасть на admin панель. Чтобы стать администратором, достаточно в таблице users изменить is_admin с нуля на единицу)
+Рядом с каждым постом мы видим просмотры и лайки, сортировка происходит именно по лайкам, пост с самым большим колличество отображается первым. Также реализована дата создания поста. Чтобы перейти к single страничке поста достаточно нажать на кнопку "View" или на название. Пользователь являющийся is_admin = 1 может обнаружить 2 дополнительные кнопки у каждого поста (Edit и Delete) позволяющие удалять или изменять. Тем самым администратору не придётся переходить к admin панели и искать нужный пост для его изменения или удаления, что упрощает модерацию контента.
+
+При посещении single странички поста, количество его просмотров увеличивается на 1. Здесь выполнен вывод все данных (картинка, название, цитата, основной контент, категория, просмотры, лайки, комментарии). Ставить лайки и оставлять комментарии может только авторизованный пользователь (1 лайк = 1 пользователь) При нажатии на название категории, нас перекинет на страничку этой категории, где будут выведены все посты к которой она закреплена.
+Возможность пользователя оставлять комментарии неограничена, но удалять он может лишь свои комментарии. У администратора существует возможность удалять как свои, так и чужие комментарии. Также рядом с ником админа есть надпись "Администратор". На single страничке разработана пагинация комментариев.
+
+В admin панели представлена возможность добавления и удаления как постов так и категорий. Также реализован их вывод в укороченном виде. Был использован шаблон AdminLTE
+## Лицензия
+
+Проект распространяется под лицензией MIT.    
