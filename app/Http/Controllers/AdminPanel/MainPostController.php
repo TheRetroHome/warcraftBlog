@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Storage;
 class MainPostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Стандартный CRUD (вывод постов, создание, редактирование, обновление, удаление)
      */
     public function index()
     {
-        $posts = Post::with('category')->paginate(5);
-        $pagination = $posts->links('pagination::bootstrap-4');
+        $posts = Post::with('category')->paginate(5); //Загрузка постов и категорий для каждого поста (избегаю проблему n+1)
+        $pagination = $posts->links('pagination::bootstrap-4'); //Красивая пагинация отправлена в вид
         return view('admin.posts.index',compact('posts','pagination'));
     }
 
@@ -25,7 +25,7 @@ class MainPostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all()->pluck('title','id');
+        $categories = Category::all()->pluck('title','id'); //Передаём в вид всех категорий
         return view('admin.posts.create',compact('categories'));
     }
 
@@ -34,8 +34,8 @@ class MainPostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = $request->validated();
-        $data['thumbnail']= Post::uploadImage($request);
+        $data = $request->validated();  //Валидируем данные моим кастомные реквестом
+        $data['thumbnail']= Post::uploadImage($request); //Воспользуемся методом который находися в моделе (создает папку и помещает туда картинку)
         Post::create($data);
         return redirect()->route('post.index')->with('success','Пост успешно добавлен');
     }
@@ -46,7 +46,7 @@ class MainPostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::pluck('title','id')->all();
+        $categories = Category::pluck('title','id')->all(); //Передаём в вид всех категорий
         return view('admin.posts.edit',compact('categories','post'));
     }
 
@@ -58,7 +58,7 @@ class MainPostController extends Controller
         $data = $request->all();
         if($file = Post::uploadImage($request,$post->thumbnail)){
             $data['thumbnail'] = $file;
-        }
+        } //Если у пользователя есть картинка, мы её обновим
         $post->update($data);
         return redirect()->route('post.index')->with('success','Пост успешно редактирован');
     }
@@ -69,7 +69,7 @@ class MainPostController extends Controller
     public function destroy(Post $post)
     {
         if($post->thumbnail){
-            Storage::disk('public')->delete($post->thumbnail);
+            Storage::disk('public')->delete($post->thumbnail);  //Удаление картинки, если она закреплена за пользователем
         }
         $post->delete();
         return redirect()->route('post.index')->with('success','Пост успешно удалён');

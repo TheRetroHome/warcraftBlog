@@ -22,20 +22,20 @@ class Post extends Model
         ];
     }
     public function category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);   //1 пост = 1 категория
     }
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class);         //1 пост = много лайков
     }
 
     public function likedBy(User $user)
     {
-        return $this->likes->contains('user_id', $user->id);
+        return $this->likes->contains('user_id', $user->id); //Используем в виде single (для отображения нужной кнопки)
     }
 
     public static function uploadImage(Request $request,$image = null){
-        if ($request->hasFile('thumbnail')){
+        if ($request->hasFile('thumbnail')){    //Добавляем картинку в папку с соответствующей датой (если есть старая, удаляем её)
             if($image){
                 Storage::disk('public')->delete($image);
             }
@@ -46,15 +46,15 @@ class Post extends Model
     }
     public function getImage(){
         if(!$this->thumbnail){
-            return asset('images\default.png');
+            return asset('images\default.png'); //Для вывода картинки. Если она есть выводим, если нет, выведем дефолтную
         }
         return asset("storage/{$this->thumbnail}");
     }
     public function getPostDate(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d F, Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d F, Y');    //Для отображения даты в виде
     }
     public function scopeLike($query,$s){
-        return $query->where('title','LIKE',"%{$s}%");
+        return $query->where('title','LIKE',"%{$s}%");  //Скоп для поиска постов
     }
     public function comments()
     {

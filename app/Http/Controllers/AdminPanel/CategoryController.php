@@ -13,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::paginate(3);
-        $pagination=$categories->links('pagination::bootstrap-4');
+        $categories=Category::paginate(3); //Берём все категории и пагинируем по 3
+        $pagination=$categories->links('pagination::bootstrap-4'); //Отправляем красивую пагинацию
         return view('admin.categories.index',compact('categories','pagination'));
     }
 
@@ -32,9 +32,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'=>'required',
+            'title'=>'required',    //Валидируем
         ]);
-        Category::create($data);
+        Category::create($data);    //Создаём
         return redirect()->route('category.index')->with('success','Категория успешно добавлена');
     }
     /**
@@ -51,9 +51,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $data = $request->validate([
-            'title'=>'required',
+            'title'=>'required',    //Валидируем
         ]);
-        $category->update($data);
+        $category->update($data);   //Обновляем
         return redirect()->route('category.index')->with('success','Категория успешно редактирована!');
     }
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if($category->posts()->count()){
+        if($category->posts()->count()){    //Если у этой категории есть привязанные посты, мы её не сможем удалить
             return redirect()->route('category.index')->with('error','Ошибка! У категории есть записи!');
         }
         $category->delete($category);

@@ -24,11 +24,11 @@ class User extends Authenticatable
     ];
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);  //1 пользователь = много комментариев
     }
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class); //1 пользователь может ставить много лайков
     }
 
 

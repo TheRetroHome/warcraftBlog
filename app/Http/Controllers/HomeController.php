@@ -11,23 +11,23 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Post;
 class HomeController extends Controller
 {
-    public function home(){
-        $posts = Post::withCount('likes')
-            ->orderBy('likes_count', 'desc')
+    public function home(){                 //Вывод данных на страничку "/",
+        $posts = Post::withCount('likes')   //Пагинация по 6 штук, сортировка по кол-ву лайков
+            ->orderBy('likes_count', 'desc')//Если лайков везде одинаковое кол-во, то сортировка по дате создания
             ->orderBy('created_at', 'desc')
             ->paginate(6);
         $pagination = $posts->links('pagination::bootstrap-4');
         return view('main.index',compact('posts','pagination'));
     }
-    public function loginForm(){
+    public function loginForm(){          //Вид логина
         return view('main.login');
     }
-    public function registerForm(){
+    public function registerForm(){      //Вид регистрации
         return view('main.register');
     }
     public function login(LoginRequest $request){
-        Auth::attempt($request->only('email','password'));
-        if(Auth::check() && Auth::user()->is_admin){
+        Auth::attempt($request->only('email','password'));  //Попытка авторизации используя лишь email и пароль
+        if(Auth::check() && Auth::user()->is_admin){             //Проверка, если пользователь авторизован, и он админ, его перебросит на админ панель
             return redirect()->route('admin.index')->with('success','Авторизация пройдена, привет Админ!');
     }
         else{
@@ -35,29 +35,29 @@ class HomeController extends Controller
         }
     }
     public function register(UserRequest $request){
-    $user = User::create([
+    $user = User::create([                         //Стандартное созданрие пользователя
         'name'=>$request->name,
         'email'=>$request->email,
         'password'=>bcrypt($request->password),
     ]);
-    Auth::login($user);
+    Auth::login($user);                           //Авторизация после его успешной регистрации
     return redirect()->route('home')->with('success','Регистрация пройдена');
     }
     public function logout(){
-        Auth::logout();
+        Auth::logout();                         //Выход из учетной записи
         return redirect()->route('home');
     }
-    public function show($slug){
+    public function show($slug){               //Логика просмотров. При просмотре поста, его значение увеличивается на += 1
         $post = Post::where('slug',$slug)->firstOrFail();
         $post->views += 1;
         $post->update();
-        $comments = $post->comments()->paginate(10);
+        $comments = $post->comments()->paginate(10);  //Пагинация комментов
         return view('main.single',compact('post','comments'));
     }
-    public function showCategoryPosts($slug){
-      $category = Category::where('slug',$slug)->firstOrfail();
-      $posts = $category->posts()->orderBy('id','desc')->paginate(5);
-      $pagination = $posts->links('pagination::bootstrap-4');
-      return view('main.category',compact('category','posts','pagination'));
+    public function showCategoryPosts($slug){   //Логика вывода одиночной странички категории
+      $category = Category::where('slug',$slug)->firstOrfail();    //Берём категорию соответствующую слагу
+      $posts = $category->posts()->orderBy('id','desc')->paginate(6); //Пагинируем посты, принадлежащие ей по 6 штук
+      $pagination = $posts->links('pagination::bootstrap-4');         //Добавляем красивую пагинацию от бутстрапа
+      return view('main.category',compact('category','posts','pagination')); //отправляем данные в вид
     }
 }

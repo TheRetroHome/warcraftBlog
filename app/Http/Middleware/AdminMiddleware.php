@@ -16,9 +16,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->is_admin){
-            return $next($request);
+        if(Auth::check() && Auth::user()->is_admin){ //Если пользователь авторизован и является админом, он сможет пройти
+            return $next($request);                 //В admin панель
         }
-        abort('404');
+        abort('404');           //В обратном случае выдаем ошибку 404 (чтобы скрыть панель)
     }
 }
