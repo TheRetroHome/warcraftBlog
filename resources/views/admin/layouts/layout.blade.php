@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/76a91fea5d.js" crossorigin="anonymous"></script>
     <style>
         .ck-editor__editable_inline{
         min-height: 300px;
         }
         </style>
+
         @vite('resources/js/adminForPanel.js')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -172,21 +172,21 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                          <li class="nav-item">
-                                     <a href="" class="nav-link">
+                                     <a href="{{route('admin.index')}}" class="nav-link">
                                      <i class="nav-icon fas fa-home"></i>
                                 <p>Главная</p>
                              </a>
                           </li>
 
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Категории
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav ">
                             <li class="nav-item">
                                 <a href="{{route('category.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -203,15 +203,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 Посты
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav">
                             <li class="nav-item">
                                 <a href="{{route('post.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
