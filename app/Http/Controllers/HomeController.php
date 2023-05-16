@@ -60,4 +60,7 @@ class HomeController extends Controller
       $pagination = $posts->links('pagination::bootstrap-4');         //Добавляем красивую пагинацию от бутстрапа
       return view('main.category',compact('category','posts','pagination')); //отправляем данные в вид
     }
+    public function forgotPassword(){
+        return view('main.forgotPassword');
+    }
 }

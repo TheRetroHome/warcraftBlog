@@ -26,6 +26,7 @@ Route::get('/category/{slug}',[HomeController::class,'showCategoryPosts'])->name
 Route::group(['middleware'=>'guest'], function(){
     Route::get('login',[HomeController::class,'loginForm'])->name('login');
     Route::get('register',[HomeController::class,'registerForm'])->name('register');
+    Route::get('forgot',[HomeController::class,'forgotPassword'])->name('forgotPassword');
     Route::post('login',[HomeController::class,'login'])->name('login.store');
     Route::post('register',[HomeController::class,'register'])->name('register.store');
 });
