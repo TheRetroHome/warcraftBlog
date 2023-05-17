@@ -51,16 +51,7 @@
   <form action="{{route('login.store')}}"method="POST">
   @csrf
     <img class="mb-4" src="{{asset('images/bootstrap-logo.svg')}}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Восстановление пароля</h1>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
-    </div>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Восстановить</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2023</p>
-  </form>
+    <h1 class="h3 mb-3 fw-normal">Ваш новый пароль отправлен на почту</h1>
 </main>
   </body>
 </html>

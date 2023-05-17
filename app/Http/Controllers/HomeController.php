@@ -9,6 +9,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Models\Post;
+use App\Http\Requests\ForgotPasswordRequest;
+use Illuminate\Support\Str;
+use App\Mail\ForgotPasswordMail;
+use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     public function home(){                 //Вывод данных на страничку "/",
@@ -61,6 +65,14 @@ class HomeController extends Controller
       return view('main.category',compact('category','posts','pagination')); //отправляем данные в вид
     }
     public function forgotPassword(){
-        return view('main.forgotPassword');
+        return view('main.mail.forgotPassword');
+    }
+    public function storeForgotPassword(ForgotPasswordRequest $request){
+        $newPassword = Str::random(10);
+        $user = User::where('email',$request->email)->firstOrFail();
+        $user->password = bcrypt($newPassword);
+        $user->save();
+        Mail::to($request->email)->send(new ForgotPasswordMail($newPassword));
+        return redirect('/')->with('success','Пароль был сброшен');
     }
 }

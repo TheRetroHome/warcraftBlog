@@ -26,10 +26,15 @@ Route::get('/category/{slug}',[HomeController::class,'showCategoryPosts'])->name
 Route::group(['middleware'=>'guest'], function(){
     Route::get('login',[HomeController::class,'loginForm'])->name('login');
     Route::get('register',[HomeController::class,'registerForm'])->name('register');
-    Route::get('forgot',[HomeController::class,'forgotPassword'])->name('forgotPassword');
     Route::post('login',[HomeController::class,'login'])->name('login.store');
     Route::post('register',[HomeController::class,'register'])->name('register.store');
 });
+
+Route::group(['middleware'=>'guest'], function(){
+    Route::get('forgot',[HomeController::class,'forgotPassword'])->name('forgotPassword');
+    Route::post('forgot',[HomeController::class,'storeForgotPassword'])->name('storeForgotPassword');
+});
+
 Route::group(['middleware'=>'auth'], function(){
     Route::get('logout',[HomeController::class,'logout'])->name('logout');
     Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
@@ -38,6 +43,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('likes.destroy');
 
 });
+
 Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
     Route::get('/',[AdminController::class,'index'])->name('admin.index');
     Route::resource('/post', MainPostController::class);
