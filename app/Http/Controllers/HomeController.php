@@ -30,12 +30,16 @@ class HomeController extends Controller
         return view('main.register');
     }
     public function login(LoginRequest $request){
-        Auth::attempt($request->only('email','password'));  //Попытка авторизации используя лишь email и пароль
-        if(Auth::check() && Auth::user()->is_admin){             //Проверка, если пользователь авторизован, и он админ, его перебросит на админ панель
-            return redirect()->route('admin.index')->with('success','Авторизация пройдена, привет Админ!');
-    }
+        if(Auth::attempt($request->only('email','password'))){  //Попытка авторизации используя лишь email и пароль
+            if(Auth::check() && Auth::user()->is_admin){             //Проверка, если пользователь авторизован, и он админ, его перебросит на админ панель
+                return redirect()->route('admin.index')->with('success','Авторизация пройдена, привет Админ!');
+            }
+            else{
+                return redirect()->route('home')->with('success','Авторизация пройдена');
+            }
+        }
         else{
-            return redirect()->route('home')->with('success','Авторизация пройдена');
+            return redirect()->back()->withErrors(['error' => 'Неправильный email или пароль']);
         }
     }
     public function register(UserRequest $request){
