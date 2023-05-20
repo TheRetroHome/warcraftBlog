@@ -76,7 +76,7 @@ class HomeController extends Controller
         $user = User::where('email',$request->email)->firstOrFail();
         $user->password = bcrypt($newPassword);
         $user->save();
-        Mail::to($request->email)->send(new ForgotPasswordMail($newPassword));
+        Mail::to($request->email)->queue(new ForgotPasswordMail($newPassword));
         return redirect('/')->with('success','Пароль был сброшен');
     }
 }
