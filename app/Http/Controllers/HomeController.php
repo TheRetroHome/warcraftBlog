@@ -26,7 +26,6 @@ class HomeController extends Controller
                 $query->orderBy('likes_count', 'desc');
                 break;
             case 'views':
-                // Предполагаем, что у тебя есть столбец 'views' в таблице 'posts'
                 $query->orderBy('views', 'desc');
                 break;
             case 'newest':
