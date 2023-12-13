@@ -17,6 +17,17 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <form action="{{ route('home') }}" method="GET" class="d-flex justify-content-end">
+                    <select name="sort_by" class="form-select form-select-sm w-auto" onchange="this.form.submit()">
+                        <option value="newest" {{ request('sort_by') == 'newest' ? 'selected' : '' }}>Самые новые</option>
+                        <option value="likes" {{ request('sort_by') == 'likes' ? 'selected' : '' }}>По лайкам</option>
+                        <option value="views" {{ request('sort_by') == 'views' ? 'selected' : '' }}>По просмотрам</option>
+                    </select>
+                </form>
+            </div>
+        </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               @foreach($posts as $post)
         <div class="col">

@@ -15,14 +15,32 @@ use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
-    public function home(){                 //Вывод данных на страничку "/",
-        $posts = Post::withCount('likes')   //Пагинация по 6 штук, сортировка по кол-ву лайков
-            ->orderBy('likes_count', 'desc')//Если лайков везде одинаковое кол-во, то сортировка по дате создания
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
-        $pagination = $posts->links('pagination::bootstrap-4');
-        return view('main.index',compact('posts','pagination'));
+    public function home(Request $request)
+    {
+        $sort_by = $request->input('sort_by', 'newest');
+
+        $query = Post::withCount('likes');
+
+        switch ($sort_by) {
+            case 'likes':
+                $query->orderBy('likes_count', 'desc');
+                break;
+            case 'views':
+                // Предполагаем, что у тебя есть столбец 'views' в таблице 'posts'
+                $query->orderBy('views', 'desc');
+                break;
+            case 'newest':
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $posts = $query->paginate(6);
+        $pagination = $posts->appends(['sort_by' => $sort_by])->links('pagination::bootstrap-4');
+
+        return view('main.index', compact('posts', 'pagination'));
     }
+
     public function loginForm(){          //Вид логина
         return view('main.login');
     }
